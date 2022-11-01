@@ -13,6 +13,6 @@ type ClosestPossibleWeight = {
 export type PercentageCalc = {
   percentage: number
   exact: number
-  above: ClosestPossibleWeight
-  below: ClosestPossibleWeight
+  closestAbove: ClosestPossibleWeight
+  closestBelow: ClosestPossibleWeight
 }
