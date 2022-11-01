@@ -10,7 +10,7 @@ type ClosestPossibleWeight = {
  * with the amount plus the closest possible weight
  * using the plates above and below the exact percentage
  */
-export type PercentageCalc = {
+export type WeightsAtPercentage = {
   percentage: number
   exact: number
   closestAbove: ClosestPossibleWeight

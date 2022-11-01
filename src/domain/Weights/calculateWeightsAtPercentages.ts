@@ -3,7 +3,7 @@ import { range } from 'lodash'
 
 import { Bar } from './Bar'
 import { filterAndSortPlates } from './filterAndSortPlates'
-import { PercentageCalc } from './PercentageCalc'
+import { WeightsAtPercentage } from './WeightsAtPercentage'
 import { Plate } from './Plate'
 import { WeightSystem } from './WeightSystem'
 
@@ -18,7 +18,7 @@ const percentagesToCalculate = range(1000, 375, -25).map((p) => new Decimal(p / 
  * Calculate percentage calc for every percentage of 1rm
  * from 100 -> 40%
  */
-export const calculatePercentageCalc = (
+export const calculateWeightsAtPercentages = (
   calcBase: number,
   weightSystem: WeightSystem,
   bar: Bar,
@@ -31,7 +31,7 @@ export const calculatePercentageCalc = (
   ).mul(2)
 
   return percentagesToCalculate.map((percentage) =>
-    calculateSinglePercentageCalc(
+    calculateSinglePercentageWeights(
       calcBaseDecimal,
       percentage,
       bar,
@@ -41,13 +41,13 @@ export const calculatePercentageCalc = (
   )
 }
 
-export const calculateSinglePercentageCalc = (
+export const calculateSinglePercentageWeights = (
   calcBaseDecimal: Decimal,
   percentage: Decimal,
   bar: Bar,
   smallestWeightIncrement: Decimal,
   availablePlates: Plate[],
-): PercentageCalc => {
+): WeightsAtPercentage => {
   const exactCalcBasedOnPercentage = calcBaseDecimal.mul(percentage).div(100)
   const diffBetweenExactAndClosestBelow = exactCalcBasedOnPercentage
     .minus(bar.weight)

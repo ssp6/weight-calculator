@@ -1,9 +1,9 @@
-import { calculatePercentageCalc } from './calculatePercentageCalc'
+import { calculateWeightsAtPercentages } from './calculateWeightsAtPercentages'
 import { MetricMensBar } from './defaults/bars'
 import { DefaultPlates } from './defaults/plates'
 import { MetricWeightSystem } from './defaults/weight-systems'
 
-describe('calculatePercentageCalc', () => {
+describe('calculateWeightsAtPercentages', () => {
   /**
    * Very basic tests, checked with eye balling results
    */
@@ -15,7 +15,7 @@ describe('calculatePercentageCalc', () => {
     const plates = DefaultPlates
 
     // When
-    const result = calculatePercentageCalc(calcBase, weightSystem, bar, plates)
+    const result = calculateWeightsAtPercentages(calcBase, weightSystem, bar, plates)
 
     // Then
     expect(result.length).toEqual(25)
