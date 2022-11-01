@@ -1,9 +1,9 @@
-import "./App.css";
+import './styles/App.css'
 
-import React from "react";
+import React from 'react'
 
-import { Counter } from "./features/counter/Counter";
-import logo from "./logo.svg";
+import { Counter } from './components/counter/Counter'
+import logo from './logo.svg'
 
 function App() {
   return (
@@ -54,7 +54,7 @@ function App() {
         </span>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
