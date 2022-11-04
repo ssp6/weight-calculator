@@ -29,11 +29,11 @@ const INITIAL_STATE: WeightCalcState = {
 }
 
 // *** Actions
-export const calcBaseChanged = createAction<number>('weight-calc/calcBaseChanged')
+export const updateCalcBaseAndPercentages = createAction<number>('weight-calc/updateCalcBase')
 
 // *** Reducer
 export const weightCalcReducer = createReducer(INITIAL_STATE, (builder) => {
-  builder.addCase(calcBaseChanged, (state, { payload }) => {
+  builder.addCase(updateCalcBaseAndPercentages, (state, { payload }) => {
     state.calcBase = payload
     state.weightsAtPercentages = calculateWeightsAtPercentages(
       payload,

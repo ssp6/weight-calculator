@@ -3,8 +3,8 @@ import { range } from 'lodash'
 
 import { Bar } from './Bar'
 import { filterAndSortPlates } from './filterAndSortPlates'
-import { WeightsAtPercentage } from './WeightsAtPercentage'
 import { Plate } from './Plate'
+import { WeightsAtPercentage } from './WeightsAtPercentage'
 import { WeightSystem } from './WeightSystem'
 
 /**
