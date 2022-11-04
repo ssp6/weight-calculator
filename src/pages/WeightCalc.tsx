@@ -1,3 +1,4 @@
+import SendIcon from '@mui/icons-material/Send'
 import { Box, Button, Container, TextField } from '@mui/material'
 import { InputProps as StandardInputProps } from '@mui/material/Input/Input'
 import { toNumber } from 'lodash'
@@ -58,13 +59,20 @@ export const WeightCalc: React.FC = () => {
       >
         <TextField
           id={'1rm-input'}
+          aria-label={'1 rep max'}
           variant="outlined"
           value={input1Rm}
           type={'number'}
           onChange={handleTextChange1Rm}
         />
-        <Button variant="contained" sx={{ marginLeft: 1 }} onClick={fetchUpdatedWeightPercentages}>
-          Calc
+        <Button
+          aria-label={'calculate percentages'}
+          variant="contained"
+          sx={{ marginLeft: 1 }}
+          onClick={fetchUpdatedWeightPercentages}
+          size={'large'}
+        >
+          <SendIcon />
         </Button>
       </Box>
     </Container>
