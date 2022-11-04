@@ -102,10 +102,11 @@ export const WeightCalc: React.FC = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'start',
           alignItems: 'center',
           height: '100%',
           paddingBottom: 16,
+          paddingTop: 4,
         }}
       >
         <Typography variant={'h1'} sx={{ fontSize: 40, textAlign: 'center', marginBottom: 2 }}>
