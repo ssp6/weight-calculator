@@ -1,6 +1,6 @@
 import { Plate } from './Plate'
 
-type ClosestPossibleWeight = {
+export type ClosestPossibleWeight = {
   weight: number
   plates: Plate[]
 }

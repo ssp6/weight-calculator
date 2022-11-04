@@ -1,16 +1,32 @@
 import SendIcon from '@mui/icons-material/Send'
-import { Box, Button, Container, TextField } from '@mui/material'
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TextField,
+} from '@mui/material'
 import { InputProps as StandardInputProps } from '@mui/material/Input/Input'
 import { toNumber } from 'lodash'
 import React, { useState } from 'react'
 
+import { ClosestWeightTableCell } from '../components/ClosestWeightTableCell'
 import { updateCalcBaseAndPercentages } from '../domain/Weights/redux'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 
 const MAX_1_RM_WEIGHT = 1_200
 
 export const WeightCalc: React.FC = () => {
-  const { calcBase } = useAppSelector((state) => state.weights)
+  const { calcBase, weightsAtPercentages, selectedWeightSystem } = useAppSelector(
+    (state) => state.weights,
+  )
   const dispatch = useAppDispatch()
 
   const [input1Rm, setInput1Rm] = useState<string>(calcBase?.toString() ?? '')
@@ -43,6 +59,7 @@ export const WeightCalc: React.FC = () => {
       maxWidth={'md'}
       sx={{
         display: 'flex',
+        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
@@ -75,6 +92,35 @@ export const WeightCalc: React.FC = () => {
           <SendIcon />
         </Button>
       </Box>
+      <TableContainer component={Paper}>
+        <Table aria-label={'weight percentages'}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Percentage</TableCell>
+              <TableCell>Exact</TableCell>
+              <TableCell>Closest</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {weightsAtPercentages?.map((data) => (
+              <TableRow>
+                <TableCell>{data.percentage}%</TableCell>
+                <TableCell>
+                  {data.exact} {selectedWeightSystem.weightAbbreviation}
+                </TableCell>
+                <TableCell>
+                  <ClosestWeightTableCell
+                    exactWeight={data.exact}
+                    closestAbove={data.closestAbove}
+                    closestBelow={data.closestBelow}
+                    weightSystem={selectedWeightSystem}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
     </Container>
   )
 }
