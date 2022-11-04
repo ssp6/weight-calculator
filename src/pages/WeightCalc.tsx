@@ -62,7 +62,7 @@ export const WeightCalc: React.FC = () => {
 
   const [input1Rm, setInput1Rm] = useState<string>(calcBase?.toString() ?? '')
   const handleTextChange1Rm: StandardInputProps['onChange'] = (e) => {
-    const value = toNumber(e.target.value.replace(/\D/g, ''))
+    const value = toNumber(e.target.value)
     if (value === 0) {
       setInput1Rm('')
       return
@@ -142,7 +142,7 @@ export const WeightCalc: React.FC = () => {
             </TableHead>
             <TableBody>
               {weightsAtPercentages?.map((data) => (
-                <TableRow>
+                <TableRow key={data.percentage}>
                   <StyledTableCell>{data.percentage}%</StyledTableCell>
                   <StyledTableCell>
                     {data.exact} {selectedWeightSystem.weightAbbreviation}
