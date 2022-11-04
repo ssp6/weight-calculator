@@ -1,10 +1,10 @@
-import SendIcon from '@mui/icons-material/Send'
+import FitnessCenter from '@mui/icons-material/FitnessCenter'
 import {
   Box,
   Button,
-  Card,
   Container,
   Paper,
+  styled,
   Table,
   TableBody,
   TableCell,
@@ -20,6 +20,22 @@ import React, { useState } from 'react'
 import { ClosestWeightTableCell } from '../components/ClosestWeightTableCell'
 import { updateCalcBaseAndPercentages } from '../domain/Weights/redux'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
+
+const inputFontSize = 50
+const OneRepMaxInput = styled(TextField)(({ theme }) => ({
+  '& .MuiInputBase-input': {
+    fontSize: inputFontSize,
+    width: inputFontSize * 5,
+  },
+}))
+
+const InputWithButton = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: theme.spacing(8),
+}))
 
 const MAX_1_RM_WEIGHT = 1_200
 
@@ -63,20 +79,17 @@ export const WeightCalc: React.FC = () => {
         justifyContent: 'center',
         alignItems: 'center',
         height: '100%',
+        paddingBottom: 16,
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 8,
-        }}
-      >
-        <TextField
+      <Box sx={{ textAlign: 'centre', h1: { fontSize: 40 } }}>
+        <h1>One rep max calculator</h1>
+      </Box>
+      <InputWithButton>
+        <OneRepMaxInput
+          aria-label={'1 Rep Max'}
+          placeholder={'Rep Max'}
           id={'1rm-input'}
-          aria-label={'1 rep max'}
           variant="outlined"
           value={input1Rm}
           type={'number'}
@@ -85,13 +98,13 @@ export const WeightCalc: React.FC = () => {
         <Button
           aria-label={'calculate percentages'}
           variant="contained"
-          sx={{ marginLeft: 1 }}
+          sx={{ marginLeft: 1, height: inputFontSize * 2 + 4 }}
           onClick={fetchUpdatedWeightPercentages}
           size={'large'}
         >
-          <SendIcon />
+          <FitnessCenter sx={{ height: 40, width: 40 }} />
         </Button>
-      </Box>
+      </InputWithButton>
       <TableContainer component={Paper}>
         <Table aria-label={'weight percentages'}>
           <TableHead>
