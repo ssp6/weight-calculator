@@ -8,6 +8,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  tableCellClasses,
   TableContainer,
   TableHead,
   TableRow,
@@ -21,7 +22,7 @@ import { ClosestWeightTableCell } from '../components/ClosestWeightTableCell'
 import { updateCalcBaseAndPercentages } from '../domain/Weights/redux'
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 
-const inputFontSize = 50
+const inputFontSize = 40
 const OneRepMaxInput = styled(TextField)(({ theme }) => ({
   '& .MuiInputBase-input': {
     fontSize: inputFontSize,
@@ -35,6 +36,18 @@ const InputWithButton = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   marginBottom: theme.spacing(8),
+}))
+
+const tableFontSize = 18
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.common.white,
+    fontSize: tableFontSize,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: tableFontSize,
+  },
 }))
 
 const MAX_1_RM_WEIGHT = 1_200
@@ -82,7 +95,7 @@ export const WeightCalc: React.FC = () => {
         paddingBottom: 16,
       }}
     >
-      <Box sx={{ textAlign: 'centre', h1: { fontSize: 40 } }}>
+      <Box sx={{ textAlign: 'center', h1: { fontSize: 40 } }}>
         <h1>One rep max calculator</h1>
       </Box>
       <InputWithButton>
@@ -109,26 +122,26 @@ export const WeightCalc: React.FC = () => {
         <Table aria-label={'weight percentages'}>
           <TableHead>
             <TableRow>
-              <TableCell>Percentage</TableCell>
-              <TableCell>Exact</TableCell>
-              <TableCell>Closest</TableCell>
+              <StyledTableCell>Percent</StyledTableCell>
+              <StyledTableCell>Exact</StyledTableCell>
+              <StyledTableCell>Closest</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {weightsAtPercentages?.map((data) => (
               <TableRow>
-                <TableCell>{data.percentage}%</TableCell>
-                <TableCell>
+                <StyledTableCell>{data.percentage}%</StyledTableCell>
+                <StyledTableCell>
                   {data.exact} {selectedWeightSystem.weightAbbreviation}
-                </TableCell>
-                <TableCell>
+                </StyledTableCell>
+                <StyledTableCell>
                   <ClosestWeightTableCell
                     exactWeight={data.exact}
                     closestAbove={data.closestAbove}
                     closestBelow={data.closestBelow}
                     weightSystem={selectedWeightSystem}
                   />
-                </TableCell>
+                </StyledTableCell>
               </TableRow>
             ))}
           </TableBody>
