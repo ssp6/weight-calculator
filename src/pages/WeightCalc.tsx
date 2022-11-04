@@ -1,5 +1,6 @@
 import FitnessCenter from '@mui/icons-material/FitnessCenter'
 import {
+  AppBar,
   Box,
   Button,
   Container,
@@ -13,6 +14,7 @@ import {
   TableHead,
   TableRow,
   TextField,
+  Typography,
 } from '@mui/material'
 import { InputProps as StandardInputProps } from '@mui/material/Input/Input'
 import { toNumber } from 'lodash'
@@ -84,69 +86,81 @@ export const WeightCalc: React.FC = () => {
   }
 
   return (
-    <Container
-      maxWidth={'md'}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-        paddingBottom: 16,
-      }}
-    >
-      <Box sx={{ textAlign: 'center', h1: { fontSize: 40 } }}>
-        <h1>One rep max calculator</h1>
-      </Box>
-      <InputWithButton>
-        <OneRepMaxInput
-          aria-label={'1 Rep Max'}
-          placeholder={'Rep Max'}
-          id={'1rm-input'}
-          variant="outlined"
-          value={input1Rm}
-          type={'number'}
-          onChange={handleTextChange1Rm}
-        />
-        <Button
-          aria-label={'calculate percentages'}
-          variant="contained"
-          sx={{ marginLeft: 1, height: inputFontSize * 2 + 4 }}
-          onClick={fetchUpdatedWeightPercentages}
-          size={'large'}
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Container
+          maxWidth={'md'}
+          sx={{ flexGrow: 1, paddingLeft: 2, paddingTop: 2, paddingBottom: 2 }}
         >
-          <FitnessCenter sx={{ height: 40, width: 40 }} />
-        </Button>
-      </InputWithButton>
-      <TableContainer component={Paper}>
-        <Table aria-label={'weight percentages'}>
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Percent</StyledTableCell>
-              <StyledTableCell>Exact</StyledTableCell>
-              <StyledTableCell>Closest</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {weightsAtPercentages?.map((data) => (
+          <Typography variant="h4" component="div">
+            Weight Calculator
+          </Typography>
+        </Container>
+      </AppBar>
+      <Container
+        maxWidth={'md'}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%',
+          paddingBottom: 16,
+        }}
+      >
+        <Typography variant={'h1'} sx={{ fontSize: 40, textAlign: 'center', marginBottom: 2 }}>
+          One rep max calculator
+        </Typography>
+        <InputWithButton>
+          <OneRepMaxInput
+            aria-label={'1 Rep Max'}
+            placeholder={'Rep Max'}
+            id={'1rm-input'}
+            variant="outlined"
+            value={input1Rm}
+            type={'number'}
+            onChange={handleTextChange1Rm}
+          />
+          <Button
+            aria-label={'calculate percentages'}
+            variant="contained"
+            sx={{ marginLeft: 1, height: inputFontSize * 2 + 4 }}
+            onClick={fetchUpdatedWeightPercentages}
+            size={'large'}
+          >
+            <FitnessCenter sx={{ height: 40, width: 40 }} />
+          </Button>
+        </InputWithButton>
+        <TableContainer component={Paper}>
+          <Table aria-label={'weight percentages'}>
+            <TableHead>
               <TableRow>
-                <StyledTableCell>{data.percentage}%</StyledTableCell>
-                <StyledTableCell>
-                  {data.exact} {selectedWeightSystem.weightAbbreviation}
-                </StyledTableCell>
-                <StyledTableCell>
-                  <ClosestWeightTableCell
-                    exactWeight={data.exact}
-                    closestAbove={data.closestAbove}
-                    closestBelow={data.closestBelow}
-                    weightSystem={selectedWeightSystem}
-                  />
-                </StyledTableCell>
+                <StyledTableCell>Percent</StyledTableCell>
+                <StyledTableCell>Exact</StyledTableCell>
+                <StyledTableCell>Closest</StyledTableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Container>
+            </TableHead>
+            <TableBody>
+              {weightsAtPercentages?.map((data) => (
+                <TableRow>
+                  <StyledTableCell>{data.percentage}%</StyledTableCell>
+                  <StyledTableCell>
+                    {data.exact} {selectedWeightSystem.weightAbbreviation}
+                  </StyledTableCell>
+                  <StyledTableCell>
+                    <ClosestWeightTableCell
+                      exactWeight={data.exact}
+                      closestAbove={data.closestAbove}
+                      closestBelow={data.closestBelow}
+                      weightSystem={selectedWeightSystem}
+                    />
+                  </StyledTableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Container>
+    </Box>
   )
 }
