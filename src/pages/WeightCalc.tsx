@@ -54,7 +54,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const MAX_1_RM_WEIGHT = 1_200
 
-const REGEX_OF_DECIMAL = /^[0-9]*\.?[0-9]*$/g
+const REGEX_OF_DECIMAL = /^\d{1,}(\.\d{0,4})?$/
 
 export const WeightCalc: React.FC = () => {
   const { calcBase, weightsAtPercentages, selectedWeightSystem } = useAppSelector(
@@ -64,19 +64,20 @@ export const WeightCalc: React.FC = () => {
 
   const [input1Rm, setInput1Rm] = useState<string>(calcBase?.toString() ?? '')
   const handleTextChange1Rm: StandardInputProps['onChange'] = (e) => {
-    // Ensure has max one decimal point
-    if (!REGEX_OF_DECIMAL.test(e.target.value)) {
-      // Do nothing if NOT decimal number
+    const { value } = e.target
+    // Test if decimal
+    if (value && !value.match(REGEX_OF_DECIMAL)) {
+      // Do nothing if not decimal
       return
     }
-    // Test number is lower than max
-    const valueAsNumber = toNumber(e.target.value)
+
+    const valueAsNumber = toNumber(value)
     if (valueAsNumber > MAX_1_RM_WEIGHT) {
       // Do nothing if over Max
       return
     }
 
-    setInput1Rm(e.target.value)
+    setInput1Rm(value)
   }
 
   const fetchUpdatedWeightPercentages = () => {
@@ -114,7 +115,7 @@ export const WeightCalc: React.FC = () => {
         }}
       >
         <Typography variant={'h1'} sx={{ fontSize: 40, textAlign: 'center', marginBottom: 2 }}>
-          Percentages of 1RM max calculator
+          Percentages of 1RM calculator
         </Typography>
         <InputWithButton>
           <OneRepMaxInput
@@ -123,7 +124,7 @@ export const WeightCalc: React.FC = () => {
             id={'1rm-input'}
             variant="outlined"
             value={input1Rm}
-            type={'number'}
+            type={'text'}
             onChange={handleTextChange1Rm}
           />
           <Button
